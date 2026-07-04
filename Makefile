@@ -1,6 +1,6 @@
 # Variáveis de compilação
 CC = gcc
-CFLAGS = -Wall -Wextra -I./src/matriz -I./src/view -I./src/controller -I./src
+CFLAGS = -Wall -Wextra -I./src/matriz -I./src/view -I./src/controller -I./src -I./src/utils
 
 # Pastas do projeto
 SRC_DIR = src
@@ -13,7 +13,8 @@ TARGET = $(BIN_DIR)/algoritmo_transporte
 OBJS = $(OBJ_DIR)/matriz/matriz.o \
        $(OBJ_DIR)/view/view.o \
        $(OBJ_DIR)/controller/controller.o \
-       $(OBJ_DIR)/main.o
+       $(OBJ_DIR)/main.o \
+	   $(OBJ_DIR)/utils/utils.o
 
 # Regra padrão (compila o executável)
 all: $(TARGET)
@@ -37,6 +38,9 @@ $(OBJ_DIR)/controller/controller.o: $(SRC_DIR)/controller/controller.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/view/view.o: $(SRC_DIR)/view/view.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/utils/utils.o: $(SRC_DIR)/utils/utils.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

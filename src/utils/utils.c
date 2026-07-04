@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <stdlib.h>
 
 int sum_vector(int* vect, int tam) {
     int sum = 0;

@@ -12,6 +12,7 @@ int** create_matriz(int rows, int collumns) {
     return matriz;
 }
 
+
 Matriz* create_problem_matriz(int rows, int collumns) {
     Matriz* matriz = (Matriz*)malloc(sizeof(Matriz));
     matriz->rows = rows;
@@ -36,16 +37,18 @@ int** metodo_canto_noroeste(Matriz* matriz) {
 
     for (int i = 0; i < matriz->rows; i++) {
         for (int j = 0; j < matriz->collumns; j++) {
-            int oferta_atual = matriz->oferta[i];
-            int demanda_atual = matriz->oferta[j];
+            int oferta_atual = copy_oferta[i];
+            int demanda_atual = copy_demanda[j];
             
             int smaller_val = get_smaller_value(oferta_atual, demanda_atual);
             if (smaller_val == 0) {continue;}
             copy_oferta[i] -= smaller_val;
-            copy_demanda[j] -= smaller_val; 
+            copy_demanda[j] -= smaller_val;
+            matriz_solucao[i][j] = smaller_val; 
 
         }
     }
 
+    return matriz_solucao;
 }
 

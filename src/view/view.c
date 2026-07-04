@@ -55,14 +55,18 @@ void fill_problem(Matriz* matriz) {
     }
 }
 
-void print_problem_view(Matriz* matriz) {
-    printf("\nMatriz de custos:\n");
-    for (int i = 0; i < matriz->rows; i++) {
-        for (int j = 0; j < matriz->collumns; j++) {
-            printf("%d\t", matriz->matriz[i][j]);
+void print_matriz(int** matriz, int rows, int collumns, char* label) {
+    printf("\n%s\n", label);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < collumns; j++) {
+            printf("%d\t", matriz[i][j]);
         }
         printf("\n");
     }
+}
+
+void print_problem_view(Matriz* matriz) {
+    print_matriz(matriz->matriz, matriz->rows, matriz->collumns, "Matriz de custos:");
 
     printf("\nOferta:\n");
     for (int i = 0; i < matriz->rows; i++) {
