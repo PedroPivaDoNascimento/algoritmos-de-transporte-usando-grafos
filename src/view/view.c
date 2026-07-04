@@ -76,3 +76,7 @@ void print_problem_view(Matriz* matriz) {
     }
     printf("\n");
 }
+
+void print_error_balanced() {
+    printf("\nERRO - Os valoresde oferta de demanda não estão balanceados, portanto não será possível resolver esse problema.\n");
+}
