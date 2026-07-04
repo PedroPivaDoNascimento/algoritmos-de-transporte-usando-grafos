@@ -15,4 +15,5 @@ int** create_matriz(int rows, int collumns);
 Matriz* create_problem_matriz(int rows, int collumns);
 bool is_balanced(Matriz* matriz);
 int** metodo_canto_noroeste(Matriz* matriz);
+int** metodo_custo_minimo(Matriz* matriz);
 #endif // MATRIZ_H

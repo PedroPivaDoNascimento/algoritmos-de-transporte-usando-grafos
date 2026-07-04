@@ -52,3 +52,36 @@ int** metodo_canto_noroeste(Matriz* matriz) {
     return matriz_solucao;
 }
 
+int** metodo_custo_minimo(Matriz* matriz) {
+    int** matriz_solucao = create_matriz(matriz->rows, matriz->collumns);
+    int* copy_oferta = copy_vector(matriz->oferta, matriz->rows);
+    int* copy_demanda = copy_vector(matriz->demanda, matriz->collumns);
+
+    while (sum_vector(copy_oferta, matriz->rows) > 0 && sum_vector(copy_demanda, matriz->collumns) > 0) {
+        int min_cost = __INT_MAX__;
+        int min_row = -1;
+        int min_col = -1;
+
+        for (int i = 0; i < matriz->rows; i++) {
+            for (int j = 0; j < matriz->collumns; j++) {
+                if (copy_oferta[i] > 0 && copy_demanda[j] > 0 && matriz->matriz[i][j] < min_cost) {
+                    min_cost = matriz->matriz[i][j];
+                    min_row = i;
+                    min_col = j;
+                }
+            }
+        }
+
+        if (min_row == -1 || min_col == -1) {
+            break;
+        }
+
+        int smaller_val = get_smaller_value(copy_oferta[min_row], copy_demanda[min_col]);
+        copy_oferta[min_row] -= smaller_val;
+        copy_demanda[min_col] -= smaller_val;
+        matriz_solucao[min_row][min_col] = smaller_val;
+    }
+
+    return matriz_solucao;
+}
+

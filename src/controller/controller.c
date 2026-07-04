@@ -30,3 +30,11 @@ void use_metodo_canto_noroeste(Matriz* matriz) {
     int** matriz_solucao = metodo_canto_noroeste(matriz);
     print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o método canto noroeste:");
 }
+
+void use_metodo_custo_minimo(Matriz* matriz) {
+    if (!verify_is_balanced(matriz)) {
+        return;
+    }
+    int** matriz_solucao = metodo_custo_minimo(matriz);
+    print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o método de custo minimo:");
+}

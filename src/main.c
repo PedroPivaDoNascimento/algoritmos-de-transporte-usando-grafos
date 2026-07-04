@@ -10,5 +10,6 @@ int main() {
     Matriz* matriz = create_problem_controller();
     print_problem_controller(matriz);
     use_metodo_canto_noroeste(matriz);
+    use_metodo_custo_minimo(matriz);
     return 0;
 }
