@@ -12,6 +12,7 @@ typedef struct {
 } Matriz;
 
 int** create_matriz(int rows, int collumns);
+int** multiply_matriz_by_value_matriz(int** matriz_1, int** matriz_2, int rows, int collumns);
 Matriz* create_problem_matriz(int rows, int collumns);
 bool is_balanced(Matriz* matriz);
 int** metodo_canto_noroeste(Matriz* matriz);

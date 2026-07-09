@@ -12,6 +12,15 @@ int** create_matriz(int rows, int collumns) {
     return matriz;
 }
 
+int** multiply_matriz_by_value_matriz(int** matriz_1, int** matriz_2, int rows, int collumns) {
+    int** result = create_matriz(rows, collumns);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < collumns; j++) {
+            result[i][j] = matriz_1[i][j] * matriz_2[i][j];
+        }
+    }
+    return result;
+}
 
 Matriz* create_problem_matriz(int rows, int collumns) {
     Matriz* matriz = (Matriz*)malloc(sizeof(Matriz));
@@ -49,7 +58,10 @@ int** metodo_canto_noroeste(Matriz* matriz) {
         }
     }
 
-    return matriz_solucao;
+    free(copy_oferta);
+    free(copy_demanda);
+
+    return multiply_matriz_by_value_matriz(matriz->matriz, matriz_solucao, matriz->rows, matriz->collumns);
 }
 
 int** metodo_custo_minimo(Matriz* matriz) {
@@ -82,6 +94,10 @@ int** metodo_custo_minimo(Matriz* matriz) {
         matriz_solucao[min_row][min_col] = smaller_val;
     }
 
-    return matriz_solucao;
+    free(copy_oferta);
+    free(copy_demanda);
+
+    return multiply_matriz_by_value_matriz(matriz->matriz, matriz_solucao, matriz->rows, matriz->collumns);
 }
+
 
