@@ -6,8 +6,8 @@
 
 int** create_matriz(int rows, int collumns) {
     int** matriz = (int**)malloc(rows * sizeof(int*));
-    for (int i = 0; i < collumns; i++) {
-        matriz[i] = (int*)malloc(collumns * sizeof(int));
+    for (int i = 0; i < rows; i++) {
+        matriz[i] = (int*)calloc(collumns, sizeof(int));
     }
     return matriz;
 }
@@ -61,7 +61,10 @@ int** metodo_canto_noroeste(Matriz* matriz) {
     free(copy_oferta);
     free(copy_demanda);
 
-    return multiply_matriz_by_value_matriz(matriz->matriz, matriz_solucao, matriz->rows, matriz->collumns);
+    int custo_total = calculate_total_cost(matriz_solucao, matriz->matriz, matriz->rows, matriz->collumns);
+    printf("\nCusto total Z (Canto Noroeste): %d", custo_total);
+
+    return matriz_solucao;
 }
 
 int** metodo_custo_minimo(Matriz* matriz) {
@@ -97,7 +100,20 @@ int** metodo_custo_minimo(Matriz* matriz) {
     free(copy_oferta);
     free(copy_demanda);
 
-    return multiply_matriz_by_value_matriz(matriz->matriz, matriz_solucao, matriz->rows, matriz->collumns);
+    int custo_total = calculate_total_cost(matriz_solucao, matriz->matriz, matriz->rows, matriz->collumns);
+    printf("\nCusto total Z (Custo Mínimo): %d", custo_total);
+
+    return matriz_solucao;
+}
+
+int calculate_total_cost(int** matriz_solucao, int** custos, int rows, int collumns) {
+    int total_cost = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < collumns; j++) {
+            total_cost += matriz_solucao[i][j] * custos[i][j];
+        }
+    }
+    return total_cost;
 }
 
 

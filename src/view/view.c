@@ -26,7 +26,7 @@ int get_val_custo(int row, int collumn) {
 
 int get_val_oferta(int row) {
     int val = 0;
-    printf("Figite o valor da oferta na linha [%d]: ", row);
+    printf("Digite o valor da oferta na linha [%d]: ", row);
     scanf("%d", &val);
     return val;
 }

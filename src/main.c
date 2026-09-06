@@ -11,5 +11,6 @@ int main() {
     print_problem_controller(matriz);
     use_metodo_canto_noroeste(matriz);
     use_metodo_custo_minimo(matriz);
+    use_metodo_vogel(matriz);
     return 0;
 }

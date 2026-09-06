@@ -1,6 +1,6 @@
 # Variáveis de compilação
 CC = gcc
-CFLAGS = -Wall -Wextra -I./src/matriz -I./src/view -I./src/controller -I./src -I./src/utils
+CFLAGS = -Wall -Wextra -I./src/matriz -I./src/view -I./src/controller -I./src -I./src/utils -I./src/vogel
 
 # Pastas do projeto
 SRC_DIR = src
@@ -14,7 +14,8 @@ OBJS = $(OBJ_DIR)/matriz/matriz.o \
        $(OBJ_DIR)/view/view.o \
        $(OBJ_DIR)/controller/controller.o \
        $(OBJ_DIR)/main.o \
-	   $(OBJ_DIR)/utils/utils.o
+	   $(OBJ_DIR)/utils/utils.o \
+	   $(OBJ_DIR)/vogel/vogel.o
 
 # Regra padrão (compila o executável)
 all: $(TARGET)
@@ -41,6 +42,10 @@ $(OBJ_DIR)/view/view.o: $(SRC_DIR)/view/view.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OBJ_DIR)/utils/utils.o: $(SRC_DIR)/utils/utils.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/vogel/vogel.o: $(SRC_DIR)/vogel/vogel.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
