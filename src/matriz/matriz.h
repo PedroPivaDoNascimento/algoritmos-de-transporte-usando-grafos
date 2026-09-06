@@ -17,4 +17,5 @@ Matriz* create_problem_matriz(int rows, int collumns);
 bool is_balanced(Matriz* matriz);
 int** metodo_canto_noroeste(Matriz* matriz);
 int** metodo_custo_minimo(Matriz* matriz);
+int calculate_total_cost(int** matriz_solucao, int** custos, int rows, int collumns);
 #endif // MATRIZ_H

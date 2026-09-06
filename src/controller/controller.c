@@ -1,4 +1,5 @@
 #include "../view/view.h"
+#include "../vogel/vogel.h"
 #include "controller.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -37,4 +38,12 @@ void use_metodo_custo_minimo(Matriz* matriz) {
     }
     int** matriz_solucao = metodo_custo_minimo(matriz);
     print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o método de custo minimo:");
+}
+
+void use_metodo_vogel(Matriz* matriz) {
+    if (!verify_is_balanced(matriz)) {
+        return;
+    }
+    int** matriz_solucao = metodo_vogel(matriz);
+    print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o Método de Aproximação de Vogel :");
 }
