@@ -12,5 +12,7 @@ int main() {
     use_metodo_canto_noroeste(matriz);
     use_metodo_custo_minimo(matriz);
     use_metodo_vogel(matriz);
+    use_resolver_modi(matriz);
+    free_matriz(matriz);
     return 0;
 }

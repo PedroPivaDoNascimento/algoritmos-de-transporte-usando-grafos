@@ -1,6 +1,6 @@
 # Variáveis de compilação
 CC = gcc
-CFLAGS = -Wall -Wextra -I./src/matriz -I./src/view -I./src/controller -I./src -I./src/utils -I./src/vogel
+CFLAGS = -Wall -Wextra -I./src/matriz -I./src/view -I./src/controller -I./src -I./src/utils -I./src/vogel -I./src/modi
 
 # Pastas do projeto
 SRC_DIR = src
@@ -15,7 +15,9 @@ OBJS = $(OBJ_DIR)/matriz/matriz.o \
        $(OBJ_DIR)/controller/controller.o \
        $(OBJ_DIR)/main.o \
 	   $(OBJ_DIR)/utils/utils.o \
-	   $(OBJ_DIR)/vogel/vogel.o
+	   $(OBJ_DIR)/vogel/vogel.o \
+	   $(OBJ_DIR)/modi/modi.o \
+	   $(OBJ_DIR)/modi/ciclo.o
 
 # Regra padrão (compila o executável)
 all: $(TARGET)
@@ -46,6 +48,14 @@ $(OBJ_DIR)/utils/utils.o: $(SRC_DIR)/utils/utils.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/vogel/vogel.o: $(SRC_DIR)/vogel/vogel.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/modi/modi.o: $(SRC_DIR)/modi/modi.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/modi/ciclo.o: $(SRC_DIR)/modi/ciclo.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
