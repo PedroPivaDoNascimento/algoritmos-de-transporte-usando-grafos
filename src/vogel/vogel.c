@@ -59,7 +59,6 @@ static int penalidade_coluna(int** custos, int* row_blocked, int rows, int j, in
 }
 
 int** metodo_vogel(Matriz* matriz) {
-    /* Balancear automaticamente (Fase 1) */
     int ghost_added;
     Matriz* bal = balance_matriz(matriz, &ghost_added);
 
@@ -67,10 +66,8 @@ int** metodo_vogel(Matriz* matriz) {
     int collumns = bal->collumns;
     int** custos = bal->matriz;
 
-    /* Matriz de solução (quantidades alocadas) */
     int** matriz_solucao = create_matriz(rows, collumns);
 
-    /* Cópias das ofertas e demandas para não modificar o problema original */
     int* oferta_rest  = copy_vector(bal->oferta,  rows);
     int* demanda_rest = copy_vector(bal->demanda, collumns);
 
@@ -78,19 +75,17 @@ int** metodo_vogel(Matriz* matriz) {
     int* row_blocked = (int*)calloc(rows, sizeof(int));
     int* col_blocked = (int*)calloc(collumns, sizeof(int));
 
-    /* Fluxo principal */
     while (sum_vector(oferta_rest, rows) > 0 && sum_vector(demanda_rest, collumns) > 0) {
 
         int melhor_pen = -1;
         int eh_linha   = -1;  /* 1 = linha, 0 = coluna */
         int melhor_idx = -1;
-        int melhor_min = __INT_MAX__; /* custo mínimo da linha/coluna escolhida (desempate) */
+        int melhor_min = __INT_MAX__; 
 
         /* Calcular penalidade de cada linha ativa */
         for (int i = 0; i < rows; i++) {
             if (row_blocked[i] || oferta_rest[i] == 0) continue;
-            int pen = penalidade_linha(custos, col_blocked, collumns, i,
-                                       oferta_rest, demanda_rest);
+            int pen = penalidade_linha(custos, col_blocked, collumns, i, oferta_rest, demanda_rest);
             if (pen < 0) continue;
 
             /* Custo mínimo da linha (para desempate) */
@@ -100,8 +95,7 @@ int** metodo_vogel(Matriz* matriz) {
                     cmin = custos[i][j];
             }
 
-            if (pen > melhor_pen ||
-                (pen == melhor_pen && cmin < melhor_min)) {
+            if (pen > melhor_pen || (pen == melhor_pen && cmin < melhor_min)) {
                 melhor_pen = pen;
                 melhor_min = cmin;
                 eh_linha   = 1;
@@ -112,8 +106,7 @@ int** metodo_vogel(Matriz* matriz) {
         /* Calcular penalidade de cada coluna ativa */
         for (int j = 0; j < collumns; j++) {
             if (col_blocked[j] || demanda_rest[j] == 0) continue;
-            int pen = penalidade_coluna(custos, row_blocked, rows, j,
-                                        oferta_rest, demanda_rest);
+            int pen = penalidade_coluna(custos, row_blocked, rows, j, oferta_rest, demanda_rest);
             if (pen < 0) continue;
 
             /* Custo mínimo da coluna (para desempate) */
@@ -123,8 +116,7 @@ int** metodo_vogel(Matriz* matriz) {
                     cmin = custos[i][j];
             }
 
-            if (pen > melhor_pen ||
-                (pen == melhor_pen && cmin < melhor_min)) {
+            if (pen > melhor_pen || (pen == melhor_pen && cmin < melhor_min)) {
                 melhor_pen = pen;
                 melhor_min = cmin;
                 eh_linha   = 0;
@@ -145,8 +137,8 @@ int** metodo_vogel(Matriz* matriz) {
                 if (col_blocked[j] || demanda_rest[j] == 0) continue;
                 if (custos[i][j] < min_custo) {
                     min_custo = custos[i][j];
-                    aloc_row  = i;
-                    aloc_col  = j;
+                    aloc_row = i;
+                    aloc_col = j;
                 }
             }
         } else {
@@ -155,8 +147,8 @@ int** metodo_vogel(Matriz* matriz) {
                 if (row_blocked[i] || oferta_rest[i] == 0) continue;
                 if (custos[i][j] < min_custo) {
                     min_custo = custos[i][j];
-                    aloc_row  = i;
-                    aloc_col  = j;
+                    aloc_row = i;
+                    aloc_col = j;
                 }
             }
         }
@@ -166,7 +158,7 @@ int** metodo_vogel(Matriz* matriz) {
         /* Alocar o máximo possível em (aloc_row, aloc_col) */
         int alocado = get_smaller_value(oferta_rest[aloc_row], demanda_rest[aloc_col]);
         matriz_solucao[aloc_row][aloc_col] += alocado;
-        oferta_rest[aloc_row]  -= alocado;
+        oferta_rest[aloc_row] -= alocado;
         demanda_rest[aloc_col] -= alocado;
 
         /* Bloquear linha se oferta esgotada */
@@ -182,11 +174,6 @@ int** metodo_vogel(Matriz* matriz) {
     int custo_total = calculate_total_cost(matriz_solucao, custos, rows, collumns);
     printf("\nCusto total Z (Vogel): %d", custo_total);
 
-    if (ghost_added == 1) {
-        printf("\n[INFO] Consumidor fantasma adicionado (coluna %d) para balancear a matriz.", collumns);
-    } else if (ghost_added == -1) {
-        printf("\n[INFO] Fornecedor fantasma adicionado (linha %d) para balancear a matriz.", rows);
-    }
 
     free(oferta_rest);
     free(demanda_rest);

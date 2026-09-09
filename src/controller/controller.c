@@ -24,8 +24,6 @@ void print_problem_controller(Matriz* matriz) {
  */
 bool verify_is_balanced(Matriz* matriz) {
     if (!is_balanced(matriz)) {
-        printf("\n[AVISO] A matriz não está balanceada.");
-        printf("\n        Um nó fictício será adicionado automaticamente em cada método.\n");
         return false;
     }
     return true;
@@ -36,9 +34,7 @@ static void free_solucao(int** sol, Matriz* original) {
     int total_oferta  = sum_vector(original->oferta,  original->rows);
     int total_demanda = sum_vector(original->demanda, original->collumns);
     /* Número de linhas real da solução */
-    int rows = (total_demanda > total_oferta)
-               ? original->rows + 1
-               : original->rows;
+    int rows = (total_demanda > total_oferta) ? original->rows + 1: original->rows;
     for (int i = 0; i < rows; i++) free(sol[i]);
     free(sol);
 }
@@ -46,24 +42,21 @@ static void free_solucao(int** sol, Matriz* original) {
 void use_metodo_canto_noroeste(Matriz* matriz) {
     verify_is_balanced(matriz);
     int** matriz_solucao = metodo_canto_noroeste(matriz);
-    print_matriz(matriz_solucao, matriz->rows, matriz->collumns,
-                 "\nMatriz de solução usando o método canto noroeste:");
+    print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o método canto noroeste:");
     free_solucao(matriz_solucao, matriz);
 }
 
 void use_metodo_custo_minimo(Matriz* matriz) {
     verify_is_balanced(matriz);
     int** matriz_solucao = metodo_custo_minimo(matriz);
-    print_matriz(matriz_solucao, matriz->rows, matriz->collumns,
-                 "\nMatriz de solução usando o método de custo mínimo:");
+    print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o método de custo mínimo:");
     free_solucao(matriz_solucao, matriz);
 }
 
 void use_metodo_vogel(Matriz* matriz) {
     verify_is_balanced(matriz);
     int** matriz_solucao = metodo_vogel(matriz);
-    print_matriz(matriz_solucao, matriz->rows, matriz->collumns,
-                 "\nMatriz de solução usando o Método de Aproximação de Vogel:");
+    print_matriz(matriz_solucao, matriz->rows, matriz->collumns, "Matriz de solução usando o Método de Aproximação de Vogel:");
     free_solucao(matriz_solucao, matriz);
 }
 

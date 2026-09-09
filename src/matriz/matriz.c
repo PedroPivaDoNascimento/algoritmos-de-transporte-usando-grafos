@@ -150,12 +150,6 @@ int** metodo_canto_noroeste(Matriz* matriz) {
     int custo_total = calculate_total_cost(matriz_solucao, bal->matriz, rows, cols);
     printf("\nCusto total Z (Canto Noroeste): %d", custo_total);
 
-    if (ghost_added == 1) {
-        printf("\n[INFO] Consumidor fantasma adicionado (coluna %d) para balancear a matriz.", cols);
-    } else if (ghost_added == -1) {
-        printf("\n[INFO] Fornecedor fantasma adicionado (linha %d) para balancear a matriz.", rows);
-    }
-
     free_matriz(bal);
     return matriz_solucao;
 }
@@ -252,12 +246,6 @@ int** metodo_custo_minimo(Matriz* matriz) {
 
     int custo_total = calculate_total_cost(matriz_solucao, bal->matriz, rows, cols);
     printf("\nCusto total Z (Custo Mínimo): %d", custo_total);
-
-    if (ghost_added == 1) {
-        printf("\n[INFO] Consumidor fantasma adicionado (coluna %d) para balancear a matriz.", cols);
-    } else if (ghost_added == -1) {
-        printf("\n[INFO] Fornecedor fantasma adicionado (linha %d) para balancear a matriz.", rows);
-    }
 
     free_matriz(bal);
     return matriz_solucao;
