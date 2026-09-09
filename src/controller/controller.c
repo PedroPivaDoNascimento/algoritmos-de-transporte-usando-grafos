@@ -1,5 +1,6 @@
 #include "../view/view.h"
 #include "../vogel/vogel.h"
+#include "../modi/modi.h"
 #include "controller.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -60,4 +61,16 @@ void use_metodo_vogel(Matriz* matriz) {
     free_solucao(matriz_solucao, matriz);
 }
 
+void use_resolver_modi(Matriz* matriz) {
+    int ghost_added;
+    Matriz* bal = balance_matriz(matriz, &ghost_added);
 
+    int** fluxo_inicial = metodo_vogel(bal);
+
+    resolver_problema_transporte(bal, fluxo_inicial);
+
+    int rows_bal = bal->rows;
+    for (int i = 0; i < rows_bal; i++) free(fluxo_inicial[i]);
+    free(fluxo_inicial);
+    free_matriz(bal);
+}

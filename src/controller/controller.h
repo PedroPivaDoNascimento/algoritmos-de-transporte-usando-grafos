@@ -9,5 +9,7 @@ bool verify_is_balanced(Matriz* matriz);
 void use_metodo_canto_noroeste(Matriz* matriz);
 void use_metodo_custo_minimo(Matriz* matriz);
 void use_metodo_vogel(Matriz* matriz);
+    
+void use_resolver_modi(Matriz* matriz);
 
 #endif // CONTROLLER_H
